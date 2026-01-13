@@ -1,5 +1,5 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS build
-COPY . .
+COPY src/main/resources/static .
 RUN mvn clean package -DskipTests
 
 # Bước 2: Chạy ứng dụng bằng Java 17 (Temurin)
