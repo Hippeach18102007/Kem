@@ -19,4 +19,4 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 # Copy file .jar từ bước build sang bước chạy (thay tên file jar cho đúng với project của bạn)
 COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xmx350m", "-jar", "app.jar"]
