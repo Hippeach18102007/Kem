@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thế Giới Của Kem 🌈</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pop-pink': '#FF99C8',   /* Hồng kẹo */
+                        'pop-yellow': '#FCF6BD', /* Vàng chanh */
+                        'pop-blue': '#A9DEF9',   /* Xanh biển */
+                        'pop-purple': '#E4C1F9', /* Tím mộng mơ */
+                        'pop-green': '#D0F4DE',  /* Xanh lá nhẹ */
+                    },
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                        cursive: ['Pacifico', 'cursive'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#FF99C8 0.5px, transparent 0.5px), radial-gradient(#A9DEF9 0.5px, #fdfbf7 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        .blob-shape {
+            position: absolute;
+            z-index: -1;
+            filter: blur(40px);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="text-gray-700 font-sans antialiased overflow-x-hidden">
+
+<nav class="fixed w-full z-50 top-0 transition-all duration-300 backdrop-blur-md bg-white/70 border-b border-white/50">
+    <div class="flex justify-between items-center p-4 max-w-6xl mx-auto">
+        <div class="text-3xl font-cursive bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text drop-shadow-sm hover:animate-wiggle cursor-default">
+            Kem The Cat 🐾
+        </div>
+        <a href="#gallery" class="bg-gradient-to-r from-pop-pink to-purple-400 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-pink-300/50 hover:scale-105 transition transform">
+            Xem Ảnh Ngay
+        </a>
+    </div>
+</nav>
+
+<header class="relative pt-32 pb-20 px-4 text-center max-w-4xl mx-auto">
+    <div class="blob-shape bg-pop-blue w-64 h-64 rounded-full top-20 left-10 animate-float"></div>
+    <div class="blob-shape bg-pop-pink w-72 h-72 rounded-full bottom-0 right-10 animate-float" style="animation-delay: 2s;"></div>
+    <div class="blob-shape bg-pop-yellow w-48 h-48 rounded-full top-40 right-1/3 animate-float" style="animation-delay: 1s;"></div>
+
+    <div class="relative inline-block group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+        <img src="Kem1.jpg"
+             alt="Avatar Kem"
+             class="relative w-56 h-56 rounded-full border-4 border-white object-cover shadow-2xl mx-auto">
+        <span class="absolute bottom-4 right-4 text-5xl animate-bounce">👑</span>
+    </div>
+
+    <h1 class="text-6xl md:text-8xl font-cursive text-gray-800 mt-8 mb-4 drop-shadow-sm">
+        Tớ là <span class="text-pink-500">Kem</span>
+    </h1>
+
+    <p class="text-xl md:text-2xl text-gray-600 mb-8 bg-white/60 inline-block px-6 py-2 rounded-xl backdrop-blur-sm shadow-sm">
+        ✨ "Chuyên gia phá hoại & Kẻ trộm Pate" ✨
+    </p>
+
+    <button onclick="feedKem()"
+            class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-gradient-to-r from-orange-400 to-pink-500 font-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 hover:scale-110 shadow-xl shadow-orange-200">
+        <span class="mr-2 text-2xl group-hover:animate-spin">🐟</span>
+        <span id="btn-text">Thưởng cá cho Kem</span>
+    </button>
+</header>
+
+<section class="max-w-6xl mx-auto mt-10 px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-pop-pink/30 border-2 border-pop-pink p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300">
+            <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-4xl shadow-md mb-4">🎂</div>
+            <h3 class="font-bold text-xl text-pink-700 text-center uppercase tracking-wider">Tuổi Đời</h3>
+            <p class="text-center text-gray-700 mt-2 font-bold text-lg">1.5 Tuổi</p>
+            <p class="text-center text-sm text-gray-500">Vẫn còn trẻ trâu lắm</p>
+        </div>
+
+        <div class="bg-pop-blue/30 border-2 border-pop-blue p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300">
+            <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-4xl shadow-md mb-4">⚖️</div>
+            <h3 class="font-bold text-xl text-blue-700 text-center uppercase tracking-wider">Cân Nặng</h3>
+            <p class="text-center text-gray-700 mt-2 font-bold text-lg">6.5 Kg</p>
+            <p class="text-center text-sm text-gray-500">Hơi béo tí thôi...</p>
+        </div>
+
+        <div class="bg-pop-purple/30 border-2 border-pop-purple p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300">
+            <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-4xl shadow-md mb-4">💤</div>
+            <h3 class="font-bold text-xl text-purple-700 text-center uppercase tracking-wider">Sở Thích</h3>
+            <p class="text-center text-gray-700 mt-2 font-bold text-lg">Ngủ & Phá</p>
+            <p class="text-center text-sm text-gray-500">Sở trường: Làm đổ cốc nước</p>
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="max-w-7xl mx-auto mt-24 mb-20 px-4">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-cursive text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 inline-block drop-shadow-md">
+            📸 Bộ Sưu Tập Của Boss
+        </h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div th:each="imgUrl, iterStat : ${gallery}"
+             class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer transform hover:scale-105 transition duration-300 ring-4 ring-offset-2 ring-transparent hover:ring-pink-300 bg-white p-2">
+
+            <div class="overflow-hidden rounded-xl h-64 w-full relative">
+                <img th:src="${imgUrl}"
+                     class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                     alt="Ảnh của Kem">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4">
+                        <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            Meow! ❤️
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="mt-20 py-10 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 text-center relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pop-blue via-pop-purple to-pop-pink"></div>
+    <p class="font-cursive text-2xl text-gray-600">
+        Made with <span class="text-red-500 animate-pulse">❤️</span> & lots of 🐟
+    </p>
+    <p class="text-sm text-gray-400 mt-2">© 2026 Kem The Cat Official Website</p>
+</footer>
+
+<script>
+    function feedKem() {
+        const btn = document.querySelector('button');
+        const btnText = document.getElementById('btn-text');
+
+        // Hiệu ứng đơn giản
+        btn.classList.remove('from-orange-400', 'to-pink-500');
+        btn.classList.add('from-green-400', 'to-green-600', 'scale-110');
+        btnText.innerText = "Ngon quá meow~ 😋";
+
+        // Tạo mưa emoji (cơ bản)
+        createEmojiRain();
+
+        setTimeout(() => {
+            btn.classList.add('from-orange-400', 'to-pink-500');
+            btn.classList.remove('from-green-400', 'to-green-600', 'scale-110');
+            btnText.innerText = "Thưởng cá cho Kem";
+        }, 2000);
+    }
+
+    function createEmojiRain() {
+        const container = document.body;
+        const emojis = ['🐟', '🐠', '💖', '🐾', '🍖'];
+
+        for (let i = 0; i < 20; i++) {
+            const el = document.createElement('div');
+            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            el.style.position = 'fixed';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.top = '-50px';
+            el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            el.style.zIndex = '9999';
+            el.style.transition = 'top 2s ease-in, opacity 2s ease-in';
+
+            container.appendChild(el);
+
+            setTimeout(() => {
+                el.style.top = '110vh';
+                el.style.opacity = '0';
+            }, 100);
+
+            setTimeout(() => {
+                el.remove();
+            }, 2000);
+        }
+    }
+</script>
+</body>
+</html>
