@@ -21,7 +21,10 @@ public class KemController {
                 "eb348b49-27e4-4b2e-a0e5-99c19ebe52cf.jpg",
                 "6a1fcd89-806a-4085-a932-dd613d760602.jpg",
                 "9c4ef853-e251-4068-b853-57c29fd666e5.jpg",
-                "adab0656-85d7-4c6a-ad82-b8c051cecfcd (1).jpg"
+                "adab0656-85d7-4c6a-ad82-b8c051cecfcd (1).jpg",
+                "download.jpg",
+                "bec12c13-afcb-4b68-ba6f-3d17797b5ef3.jpg",
+                "2fd05019-a441-4a7f-90b8-ad7d451da11c.jpg"
         );
         model.addAttribute("gallery", photos);
 
