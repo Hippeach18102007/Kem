@@ -12,11 +12,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'pop-pink': '#FF99C8',   /* Hồng kẹo */
-                        'pop-yellow': '#FCF6BD', /* Vàng chanh */
-                        'pop-blue': '#A9DEF9',   /* Xanh biển */
-                        'pop-purple': '#E4C1F9', /* Tím mộng mơ */
-                        'pop-green': '#D0F4DE',  /* Xanh lá nhẹ */
+                        'pop-pink': '#FF99C8',
+                        'pop-yellow': '#FCF6BD',
+                        'pop-blue': '#A9DEF9',
+                        'pop-purple': '#E4C1F9',
+                        'pop-green': '#D0F4DE',
                     },
                     fontFamily: {
                         sans: ['Quicksand', 'sans-serif'],
@@ -56,6 +56,11 @@
             filter: blur(40px);
             opacity: 0.6;
         }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.5); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #E4C1F9; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #FF99C8; }
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body class="text-gray-700 font-sans antialiased overflow-x-hidden">
@@ -65,9 +70,16 @@
         <div class="text-3xl font-cursive bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text drop-shadow-sm hover:animate-wiggle cursor-default">
             Kem The Cat 🐾
         </div>
-        <a href="#gallery" class="bg-gradient-to-r from-pop-pink to-purple-400 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-pink-300/50 hover:scale-105 transition transform">
-            Xem Ảnh Ngay
-        </a>
+
+        <div class="flex items-center gap-2 md:gap-4">
+            <a href="/chat" class="hidden md:inline-flex items-center gap-2 bg-white text-purple-600 border-2 border-purple-200 px-4 py-2 rounded-full font-bold hover:bg-purple-50 hover:border-purple-400 transition transform hover:-translate-y-1">
+                <span>💬</span> Tám Chuyện
+            </a>
+
+            <a href="#guestbook" class="bg-gradient-to-r from-pop-pink to-purple-400 text-white px-4 py-2 md:px-6 md:py-2 rounded-full font-bold shadow-lg hover:shadow-pink-300/50 hover:scale-105 transition transform">
+                ✍️ Gửi Lời Nhắn
+            </a>
+        </div>
     </div>
 </nav>
 
@@ -78,25 +90,42 @@
 
     <div class="relative inline-block group">
         <div class="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-        <img src="Kem1.jpg"
+        <img th:src="@{/Kem1.jpg}"
              alt="Avatar Kem"
-             class="relative w-56 h-56 rounded-full border-4 border-white object-cover shadow-2xl mx-auto">
+             class="relative w-56 h-56 rounded-full border-4 border-white object-cover shadow-2xl mx-auto bg-white">
         <span class="absolute bottom-4 right-4 text-5xl animate-bounce">👑</span>
     </div>
 
     <h1 class="text-6xl md:text-8xl font-cursive text-gray-800 mt-8 mb-4 drop-shadow-sm">
-        Tớ là <span class="text-pink-500">Kem</span>
+        Tớ là <span class="text-pink-500" th:text="${name}">Kem</span>
     </h1>
 
-    <p class="text-xl md:text-2xl text-gray-600 mb-8 bg-white/60 inline-block px-6 py-2 rounded-xl backdrop-blur-sm shadow-sm">
-        ✨ "Chuyên gia phá hoại & Kẻ trộm Pate" ✨
+    <div class="mb-8 flex justify-center">
+        <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-purple-200 px-5 py-2 rounded-full shadow-sm text-purple-700 font-bold animate-pulse">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            <span th:text="${status}">Đang tải trạng thái...</span>
+        </div>
+    </div>
+
+    <p class="text-xl md:text-2xl text-gray-600 mb-8 bg-white/60 inline-block px-6 py-2 rounded-xl backdrop-blur-sm shadow-sm" th:text="${desc}">
+        Mô tả ở đây
     </p>
 
-    <button onclick="feedKem()"
-            class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-gradient-to-r from-orange-400 to-pink-500 font-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 hover:scale-110 shadow-xl shadow-orange-200">
-        <span class="mr-2 text-2xl group-hover:animate-spin">🐟</span>
-        <span id="btn-text">Thưởng cá cho Kem</span>
-    </button>
+    <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-6">
+        <a href="/chat" class="w-full md:w-auto group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-gradient-to-r from-blue-400 to-purple-500 font-lg rounded-full focus:outline-none hover:scale-105 shadow-xl shadow-blue-200 ring-4 ring-transparent hover:ring-blue-100">
+            <span class="mr-2 text-2xl group-hover:animate-bounce">🚀</span>
+            <span>Vào Phòng Chat</span>
+        </a>
+
+        <button onclick="feedKem()"
+                class="w-full md:w-auto group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-gradient-to-r from-orange-400 to-pink-500 font-lg rounded-full focus:outline-none hover:scale-105 shadow-xl shadow-orange-200">
+            <span class="mr-2 text-2xl group-hover:animate-spin">🐟</span>
+            <span id="btn-text">Thưởng cá cho Kem</span>
+        </button>
+    </div>
 </header>
 
 <section class="max-w-6xl mx-auto mt-10 px-4">
@@ -105,26 +134,21 @@
             <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-4xl shadow-md mb-4">🎂</div>
             <h3 class="font-bold text-xl text-pink-700 text-center uppercase tracking-wider">Tuổi Đời</h3>
             <p class="text-center text-gray-700 mt-2 font-bold text-lg">1.5 Tuổi</p>
-            <p class="text-center text-sm text-gray-500">Vẫn còn trẻ trâu lắm</p>
         </div>
-
         <div class="bg-pop-blue/30 border-2 border-pop-blue p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300">
             <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-4xl shadow-md mb-4">⚖️</div>
             <h3 class="font-bold text-xl text-blue-700 text-center uppercase tracking-wider">Cân Nặng</h3>
             <p class="text-center text-gray-700 mt-2 font-bold text-lg">6.5 Kg</p>
-            <p class="text-center text-sm text-gray-500">Hơi béo tí thôi...</p>
         </div>
-
         <div class="bg-pop-purple/30 border-2 border-pop-purple p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300">
             <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-4xl shadow-md mb-4">💤</div>
             <h3 class="font-bold text-xl text-purple-700 text-center uppercase tracking-wider">Sở Thích</h3>
             <p class="text-center text-gray-700 mt-2 font-bold text-lg">Ngủ & Phá</p>
-            <p class="text-center text-sm text-gray-500">Sở trường: Làm đổ cốc nước</p>
         </div>
     </div>
 </section>
 
-<section id="gallery" class="max-w-7xl mx-auto mt-24 mb-20 px-4">
+<section id="gallery" class="max-w-7xl mx-auto mt-24 px-4">
     <div class="text-center mb-12">
         <h2 class="text-4xl md:text-5xl font-cursive text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 inline-block drop-shadow-md">
             📸 Bộ Sưu Tập Của Boss
@@ -132,26 +156,78 @@
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div th:each="imgUrl, iterStat : ${gallery}"
+        <div th:each="imgUrl : ${gallery}"
              class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer transform hover:scale-105 transition duration-300 ring-4 ring-offset-2 ring-transparent hover:ring-pink-300 bg-white p-2">
-
             <div class="overflow-hidden rounded-xl h-64 w-full relative">
-                <img th:src="${imgUrl}"
+
+                <img th:src="@{'/' + ${imgUrl}}"
                      class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
                      alt="Ảnh của Kem">
 
                 <div class="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4">
-                        <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition duration-300">
-                            Meow! ❤️
-                        </span>
+                    <span class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition duration-300">
+                        Meow! ❤️
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<footer class="mt-20 py-10 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 text-center relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pop-blue via-pop-purple to-pop-pink"></div>
+<section id="guestbook" class="max-w-4xl mx-auto mt-24 mb-20 px-4">
+    <div class="bg-white/70 backdrop-blur-md rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-4 border-white relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-pink-200 rounded-full blur-3xl opacity-50"></div>
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-200 rounded-full blur-3xl opacity-50"></div>
+
+        <h2 class="text-3xl md:text-4xl font-cursive text-center text-pink-600 mb-8 drop-shadow-sm relative z-10">
+            💌 Sổ Lưu Bút Của Kem
+        </h2>
+
+        <p class="text-center text-gray-500 mb-6 italic">Đây là lưu bút tĩnh, nếu muốn chat chít thì vào phòng chat nhé!</p>
+
+        <form th:action="@{/add-comment}" th:object="${newComment}" method="post" class="mb-10 space-y-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="md:col-span-1">
+                    <input type="text" th:field="*{author}" placeholder="Tên của bạn..." required
+                           class="w-full px-5 py-4 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:outline-none focus:ring-4 focus:ring-pink-100 transition bg-white/90 font-bold text-gray-600 placeholder-gray-400">
+                </div>
+                <div class="md:col-span-2">
+                    <input type="text" th:field="*{content}" placeholder="Nhắn lời yêu thương cho Kem..." required
+                           class="w-full px-5 py-4 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:outline-none focus:ring-4 focus:ring-pink-100 transition bg-white/90 text-gray-600 placeholder-gray-400">
+                </div>
+            </div>
+            <button type="submit"
+                    class="w-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-lg py-3 rounded-2xl shadow-lg shadow-pink-200 hover:shadow-xl hover:scale-[1.01] transition transform active:scale-95">
+                Gửi Lời Nhắn Ngay 🚀
+            </button>
+        </form>
+
+        <hr class="border-dashed border-gray-300 mb-8">
+
+        <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar relative z-10">
+            <div th:if="${comments.isEmpty()}" class="text-center py-10">
+                <p class="text-6xl mb-4">😿</p>
+                <p class="text-gray-500 italic">Chưa có ai nhắn gì cả, buồn quá đi meow...</p>
+            </div>
+            <div th:each="c : ${comments}"
+                 class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex gap-4 items-start hover:bg-pink-50/50 transition duration-200">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-2xl shadow-inner shrink-0">
+                    👤
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center mb-1">
+                        <h4 class="font-bold text-gray-800 text-lg" th:text="${c.author}">Người lạ</h4>
+                        <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full" th:text="${c.time}">Just now</span>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed" th:text="${c.content}">Nội dung bình luận...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="py-10 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 text-center relative overflow-hidden border-t border-white">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pop-blue via-pop-purple to-pop-pink"></div>
     <p class="font-cursive text-2xl text-gray-600">
         Made with <span class="text-red-500 animate-pulse">❤️</span> & lots of 🐟
     </p>
@@ -160,17 +236,18 @@
 
 <script>
     function feedKem() {
-        const btn = document.querySelector('button');
+        const btn = document.querySelector('button[onclick="feedKem()"]');
         const btnText = document.getElementById('btn-text');
 
-        // Hiệu ứng đơn giản
+        // Đổi màu nút khi bấm
         btn.classList.remove('from-orange-400', 'to-pink-500');
         btn.classList.add('from-green-400', 'to-green-600', 'scale-110');
         btnText.innerText = "Ngon quá meow~ 😋";
 
-        // Tạo mưa emoji (cơ bản)
+        // Tạo mưa emoji
         createEmojiRain();
 
+        // Reset nút sau 2 giây
         setTimeout(() => {
             btn.classList.add('from-orange-400', 'to-pink-500');
             btn.classList.remove('from-green-400', 'to-green-600', 'scale-110');
@@ -180,8 +257,7 @@
 
     function createEmojiRain() {
         const container = document.body;
-        const emojis = ['🐟', '🐠', '💖', '🐾', '🍖'];
-
+        const emojis = ['🐟', '🐠', '💖', '🐾', '🍖', '🍤'];
         for (let i = 0; i < 20; i++) {
             const el = document.createElement('div');
             el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
@@ -191,17 +267,12 @@
             el.style.fontSize = (Math.random() * 20 + 20) + 'px';
             el.style.zIndex = '9999';
             el.style.transition = 'top 2s ease-in, opacity 2s ease-in';
-
+            el.style.pointerEvents = 'none';
             container.appendChild(el);
 
-            setTimeout(() => {
-                el.style.top = '110vh';
-                el.style.opacity = '0';
-            }, 100);
-
-            setTimeout(() => {
-                el.remove();
-            }, 2000);
+            // Xóa element sau khi rơi xong
+            setTimeout(() => { el.style.top = '110vh'; el.style.opacity = '0'; }, 100);
+            setTimeout(() => { el.remove(); }, 2000);
         }
     }
 </script>
